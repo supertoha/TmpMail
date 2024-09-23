@@ -1,4 +1,6 @@
 # TmpMail
+![logo_128x128](https://github.com/user-attachments/assets/7b1c879b-1365-49be-9e54-b8f9ae9f1d49)
+
 
 NuGet\Install-Package TmpMail 
 
