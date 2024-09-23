@@ -1,5 +1,7 @@
 # TmpMail
 
+NuGet\Install-Package TmpMail 
+
 ```
 internal class Program
 {
