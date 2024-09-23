@@ -4,6 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>TmpMail</Title>
+    <Description>Disposible mail service API</Description>
+    <PackageProjectUrl>https://github.com/supertoha/TmpMail</PackageProjectUrl>
+    <PackageTags>tmp mail, disposable mail</PackageTags>
+    <PackageId>TmpMail</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
