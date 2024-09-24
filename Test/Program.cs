@@ -1,19 +1,4 @@
-# TmpMail
-Documentation: https://github.com/supertoha/TmpMail
-Get API Key: https://rapidapi.com/supertoha/api/temporary-email-service
-
-NuGet **TmpMail** 
-
-### Features:
-* Create mailbox
-* Get letters
-* Get attached files
-* Remove mailbox
-* Remove letter
-
-### Sample:
-```Csharp
-internal class Program
+﻿internal class Program
 {
     private async static Task Main(string[] args)
     {
@@ -38,4 +23,3 @@ internal class Program
         await mailBox.DeleteAsync();
     }
 }
-```

@@ -5,8 +5,11 @@ namespace TmpMail
 {
     public class Mailbox
     {
-        internal Mailbox(TmpMail tmpMail, string email)
+        public Mailbox(TmpMail tmpMail, string email)
         {
+            if (tmpMail == null) throw new ArgumentException("tmpMail");
+            if (string.IsNullOrEmpty(email)) throw new ArgumentException("email");
+
             this._tmpMail = tmpMail;
             this._email = email;
         }
@@ -15,9 +18,12 @@ namespace TmpMail
         private readonly string _email;
         private readonly IEnumerable<Email> _emails = new List<Email>();
 
+        public string Email => this._email;
+        internal HttpClient GetClient() => this._tmpMail.GetClient();
+
         public async Task<IEnumerable<Email>> GetEmailsAsync(bool newEmailsOnly=false)
         {
-            var client = this._tmpMail.GetClient();
+            var client = this.GetClient();
             var response = await client.GetAsync($"/get_letter_list?email={this._email}");
             if (response.IsSuccessStatusCode)
             {
@@ -49,17 +55,40 @@ namespace TmpMail
             throw new TmpMailException($"Unable to get Emails");
         }
 
+        public async Task<bool> DeleteAsync(bool throwException = true)
+        {
+            var client = this.GetClient();
+            var response = await client.DeleteAsync($"/remove_email?email={this.Email}");
+            if (response.IsSuccessStatusCode)
+            {
+                var deleteResponse = await response.Content.ReadAsAsync<BaseResponse<object>>();
+                if (deleteResponse.Ok)
+                    return true;
+
+                if (throwException)
+                    throw new TmpMailException($"Unable to delete mailbox. Error: {deleteResponse.Error}");
+            }
+
+            if (throwException)
+                throw new TmpMailException($"Unable to delete mailbox. Wrong response code");
+
+            return false;
+        }
+
         private async Task<Email> GetEmailAsync(long letterId)
         {
-            var client = this._tmpMail.GetClient();
+            var client = this.GetClient();
             var response = await client.GetAsync($"/get_letter?letterId={letterId}");
             if (response.IsSuccessStatusCode)
             {
                 var litersListResponse = await response.Content.ReadAsAsync<BaseResponse<Email>>();
                 if(litersListResponse?.Ok == true)
                 {
-                    litersListResponse.Result.Id = letterId;
-                    return litersListResponse.Result;
+                    var letter = litersListResponse.Result;
+                    letter.Id = letterId;
+                    letter.Connect(this);
+
+                    return letter;
                 }
                 else
                 {

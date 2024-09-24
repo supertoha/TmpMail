@@ -8,11 +8,14 @@
     <Title>TmpMail</Title>
     <Description>Disposible mail service API</Description>
     <PackageProjectUrl>https://github.com/supertoha/TmpMail</PackageProjectUrl>
-    <PackageTags>tmp mail, disposable mail</PackageTags>
+    <PackageTags>tmp mail disposable email temporary </PackageTags>
     <PackageId>TmpMail</PackageId>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>logo_128x128.png</PackageIcon>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Version>1.1.0</Version>
+    <RepositoryUrl>https://github.com/supertoha/TmpMail</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
