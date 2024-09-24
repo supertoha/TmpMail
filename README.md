@@ -1,8 +1,12 @@
 # TmpMail
 Documentation: https://github.com/supertoha/TmpMail
+
 Get API Key: https://rapidapi.com/supertoha/api/temporary-email-service
 
 NuGet **TmpMail** 
+
+![NuGet Version](https://img.shields.io/nuget/vpre/TmpMail)
+
 
 ### Features:
 * Create mailbox
