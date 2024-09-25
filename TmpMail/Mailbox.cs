@@ -21,6 +21,12 @@ namespace TmpMail
         public string Email => this._email;
         internal HttpClient GetClient() => this._tmpMail.GetClient();
 
+        /// <summary>
+        /// Get letters list
+        /// </summary>
+        /// <param name="newEmailsOnly">true - if you want receive new emails only</param>
+        /// <returns>letters list</returns>
+        /// <exception cref="TmpMailException"></exception>
         public async Task<IEnumerable<Email>> GetEmailsAsync(bool newEmailsOnly=false)
         {
             var client = this.GetClient();
@@ -55,6 +61,12 @@ namespace TmpMail
             throw new TmpMailException($"Unable to get Emails");
         }
 
+        /// <summary>
+        /// Delete mailbox
+        /// </summary>
+        /// <param name="throwException"></param>
+        /// <returns></returns>
+        /// <exception cref="TmpMailException"></exception>
         public async Task<bool> DeleteAsync(bool throwException = true)
         {
             var client = this.GetClient();

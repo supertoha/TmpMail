@@ -35,6 +35,12 @@ namespace TmpMail
             }
         }
 
+        /// <summary>
+        /// Delete letter
+        /// </summary>
+        /// <param name="throwException"></param>
+        /// <returns>true - success</returns>
+        /// <exception cref="TmpMailException"></exception>
         public async Task<bool> DeleteAsync(bool throwException=true)
         {
             var client = this.GetClient();

@@ -21,6 +21,11 @@ namespace TmpMail
             this._email = email;
         }
 
+        /// <summary>
+        /// Get attachment`s data
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="TmpMailException"></exception>
         public async Task<byte[]> DownloadAsync()
         {
             if (this._email == null) throw new TmpMailException("Attachment is not connected");

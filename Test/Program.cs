@@ -1,4 +1,6 @@
-﻿internal class Program
+﻿using TmpMail;
+
+internal class Program
 {
     private async static Task Main(string[] args)
     {
@@ -14,6 +16,9 @@
         foreach (var email in emails)
         {
             Console.WriteLine(email);
+
+            foreach (var attachment in email.Attachments)
+                Console.WriteLine(attachment.Filename);
         }
 
         Console.WriteLine("Press any key to exit");

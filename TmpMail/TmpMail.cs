@@ -5,6 +5,10 @@ namespace TmpMail
 {
     public class TmpMail : IDisposable
     {
+        /// <summary>
+        /// Create TmpMail instance 
+        /// </summary>
+        /// <param name="apiKey">API KEY. You can get API kay at https://rapidapi.com/supertoha/api/temporary-email-service/</param>
         public TmpMail(string apiKey)
         {
             this._apiKey = apiKey;
@@ -32,10 +36,15 @@ namespace TmpMail
 
         private void ValidateService()
         {
-            if (string.IsNullOrEmpty(this._apiKey))
+            if (string.IsNullOrEmpty(this._apiKey) || this._apiKey.Equals("<YOUR API KEY>", StringComparison.CurrentCultureIgnoreCase))
                 throw new TmpMailException("Invalid API Key. Get API Key: https://rapidapi.com/supertoha/api/temporary-email-service/");
         }
 
+        /// <summary>
+        /// Create Mailbox (email address)
+        /// </summary>
+        /// <returns>Mailbox instance</returns>
+        /// <exception cref="TmpMailException"></exception>
         public async Task<Mailbox> CreateMailboxAsync()
         {
             var client = this.GetClient();
