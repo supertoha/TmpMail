@@ -6,6 +6,8 @@ Get API Key: https://rapidapi.com/supertoha/api/temporary-email-service
 NuGet **TmpMail** 
 
 ![NuGet Version](https://img.shields.io/nuget/vpre/TmpMail)
+![NuGet Downloads](https://img.shields.io/nuget/dt/TmpMail)
+
 
 
 ### Features:
