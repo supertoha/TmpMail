@@ -14,6 +14,7 @@ NuGet **TmpMail**
 * Get attached files
 * Remove mailbox
 * Remove letter
+* Send emails
 
 ### Sample:
 ```Csharp

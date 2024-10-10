@@ -8,6 +8,10 @@ internal class Program
         var mailBox = await tmpMail.CreateMailboxAsync();
         Console.WriteLine($"Mailbox is created {mailBox.Email}");
 
+        //Console.WriteLine("Press any key to send email");
+        //Console.ReadKey();
+        //await mailBox.SendEmail("Hi Bob! \nHow are you?", "Hello", "your.email@email.com");
+
         Console.WriteLine("Press any key to get emails");
         Console.ReadKey();
 

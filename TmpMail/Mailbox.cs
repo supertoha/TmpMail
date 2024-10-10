@@ -1,4 +1,11 @@
 ﻿using System;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Net.Mime;
+using System.Reflection.PortableExecutable;
+using System.Text;
+using System.Text.Json;
+using TmpMail.Requests;
 using TmpMail.Responses;
 
 namespace TmpMail
@@ -20,6 +27,54 @@ namespace TmpMail
 
         public string Email => this._email;
         internal HttpClient GetClient() => this._tmpMail.GetClient();
+
+        public async Task<bool> SendEmail(string html, string subject, string to)
+        {
+            if (string.IsNullOrEmpty(html))
+                throw new TmpMailException("Html content can`t be empty");
+
+            if (string.IsNullOrEmpty(subject))
+                throw new TmpMailException("Subject can`t be empty");
+
+            if (string.IsNullOrEmpty(to))
+                throw new TmpMailException("To (recipient) can`t be empty");
+
+            
+            var client = this.GetClient();
+            var request = new CreateEmailRequest
+            {
+                Html = this.StringToBase64String(html),
+                Subject = subject,
+                To = to,
+                From = this.Email
+            };
+            var requestString = JsonSerializer.Serialize(request);
+            var content = new StringContent(requestString)
+            {
+                Headers = { ContentType = new MediaTypeHeaderValue("application/json") }
+            };
+
+            var response = await client.PostAsync($"/send", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var sendEmailResponse = await response.Content.ReadAsAsync<BaseResponse<object>>();
+                return sendEmailResponse?.Ok == true;
+            }
+
+            return false;
+        }
+
+        private string StringToBase64String(string originalString)
+        {
+            try
+            {
+                return Convert.ToBase64String(Encoding.Unicode.GetBytes(originalString));
+            }
+            catch (Exception exc)
+            {
+                throw new TmpMailException($"Unable to convert text to BASE64 string. Exception: {exc.Message}");
+            }
+        }
 
         /// <summary>
         /// Get letters list

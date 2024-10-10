@@ -14,13 +14,9 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>logo_128x128.png</PackageIcon>
     <FileVersion>1.0.0.1</FileVersion>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <RepositoryUrl>https://github.com/supertoha/TmpMail</RepositoryUrl>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Requests\" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\data\logo_128x128.png">
