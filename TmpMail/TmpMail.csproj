@@ -8,13 +8,13 @@
     <Title>TmpMail</Title>
     <Description>Disposable email service API. You can create mailboxes, receive letters, and manage temporary email addresses with ease. This service provides a convenient solution for handling short-term email needs, ensuring privacy and reducing spam. Perfect for developers and businesses looking to integrate disposable email functionality into their applications.</Description>
     <PackageProjectUrl>https://github.com/supertoha/TmpMail</PackageProjectUrl>
-    <PackageTags>tmp mail disposable email temporary </PackageTags>
+    <PackageTags>tmp mail disposable email temporary mailbox send</PackageTags>
     <PackageId>TmpMail</PackageId>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>logo_128x128.png</PackageIcon>
     <FileVersion>1.0.0.1</FileVersion>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <RepositoryUrl>https://github.com/supertoha/TmpMail</RepositoryUrl>
   </PropertyGroup>
 
