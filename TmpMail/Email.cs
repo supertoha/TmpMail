@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
+using TmpMail.Requests;
 using TmpMail.Responses;
 
 namespace TmpMail
@@ -59,6 +62,37 @@ namespace TmpMail
                 throw new TmpMailException($"Unable to delete email. Wrong response code");
 
             return false;
+        }
+
+        /// <summary>
+        /// Reply to the email
+        /// </summary>
+        /// <param name="html">email html code or text</param>
+        /// <exception cref="TmpMailException"></exception>
+        public async Task Reply(string html)
+        {
+            if (!this.CanReply)
+                throw new TmpMailException("You can`t Reply to this email");
+
+            var client = this.GetClient();
+            var request = new ReplyRequest
+            {
+                Html = Base64Helper.StringToBase64String(html),
+                LetterId = this.Id
+            };
+            var requestString = JsonSerializer.Serialize(request);
+            var content = new StringContent(requestString)
+            {
+                Headers = { ContentType = new MediaTypeHeaderValue("application/json") }
+            };
+
+            var response = await client.PostAsync($"/reply", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var replyEmailResponse = await response.Content.ReadAsAsync<BaseResponse<object>>();
+                if (!replyEmailResponse.Ok)
+                    throw new TmpMailException($"Unable to Reply. Error: {replyEmailResponse.Error}");
+            }
         }
 
         public override string ToString()

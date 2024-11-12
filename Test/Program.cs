@@ -21,6 +21,9 @@ internal class Program
         {
             Console.WriteLine(email);
 
+            if (email.CanReply)
+                await email.Reply("Thank you for the email");
+
             foreach (var attachment in email.Attachments)
                 Console.WriteLine(attachment.Filename);
         }

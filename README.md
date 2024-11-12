@@ -17,6 +17,8 @@ NuGet **TmpMail**
 * Remove mailbox
 * Remove letter
 * Send emails
+* Reply 
+* Get mailboxes
 
 ### Sample:
 ```Csharp

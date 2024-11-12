@@ -27,6 +27,7 @@ namespace TmpMail
                 this._client.BaseAddress = new Uri("https://temporary-email-service.p.rapidapi.com/");
                 this._client.DefaultRequestHeaders.Add("X-RapidAPI-Key", this._apiKey);
                 this._client.DefaultRequestHeaders.Add("X-RapidAPI-Host", "temporary-email-service.p.rapidapi.com");
+                this._client.DefaultRequestHeaders.Add("User-Agent", $"TmpMail {System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(TmpMail).Assembly.Location).FileVersion}");
                 this._client.DefaultRequestHeaders.Accept.Clear();
                 this._client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             }
@@ -70,6 +71,30 @@ namespace TmpMail
             throw new TmpMailException($"Unable to create mailbox");
         }
 
+        /// <summary>
+        /// Get created mailboxes list for your API KEY
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="TmpMailException"></exception>
+        public async Task<Mailbox[]> GetMailboxesAsync()
+        {
+            var client = this.GetClient();
+            var response = await client.GetAsync("get_mailbox_list");
+            if (response.IsSuccessStatusCode)
+            {
+                var mailboxesResponse = await response.Content.ReadAsAsync<BaseResponse<GetMailboxesResponse>>();
+                if (mailboxesResponse?.Ok == true)
+                {
+                    return mailboxesResponse.Result.Mailboxes.Select(x=> new Mailbox(this, x.Email)).ToArray();
+                }
+                else
+                {
+                    throw new TmpMailException($"Unable to get mailboxes list. {mailboxesResponse?.Error ?? "Unexpected response"}");
+                }
+            }
+
+            throw new TmpMailException($"Unable to get mailboxes");
+        }
 
         public void Dispose()
         {

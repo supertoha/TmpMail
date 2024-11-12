@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Net.Mime;
-using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.Json;
 using TmpMail.Requests;
@@ -43,7 +40,7 @@ namespace TmpMail
             var client = this.GetClient();
             var request = new CreateEmailRequest
             {
-                Html = this.StringToBase64String(html),
+                Html = Base64Helper.StringToBase64String(html),
                 Subject = subject,
                 To = to,
                 From = this.Email
@@ -62,18 +59,6 @@ namespace TmpMail
             }
 
             return false;
-        }
-
-        private string StringToBase64String(string originalString)
-        {
-            try
-            {
-                return Convert.ToBase64String(Encoding.Unicode.GetBytes(originalString));
-            }
-            catch (Exception exc)
-            {
-                throw new TmpMailException($"Unable to convert text to BASE64 string. Exception: {exc.Message}");
-            }
         }
 
         /// <summary>
